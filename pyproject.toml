@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "sender-project"
+version = "0.1.0"
+description = "Sender-project - its sending list management project, administration and statistics servise based on Django."
+authors = ["Dmitrii, <dima12sik@yandex.ru>"]
+readme = "README.md"
+packages = [{include = "sender_project"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^4.2.3"
+pytils = "^0.4.1"
+psycopg2-binary = "^2.9.6"
+pillow = "^10.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
