@@ -1,0 +1,27 @@
+{% extends 'clients/base.html' %}
+{% load client_email_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header text-center">
+            <h4 class="my-0 font-weight-normal">{{ object.last_name|title }} {{ object.first_name|title }}</h4>
+        </div>
+        <div class="card-body">
+            <ul class="list-unstyled text-center">
+                <li><strong>Имя: </strong>{{ object.first_name|title }}</li>
+                <li><strong>Фамилия: </strong>{{ object.last_name|title }}</li>
+                <li><strong>Отчество: </strong>{{ object.middle_name|title }}</li>
+                <li><strong>Email: </strong>{{ object.email|hide_email }}</li>
+                {% if object.comment %}
+                <li><strong>Комментарии: </strong>{{ object.comment }}</li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-outline-primary" href="{% url 'client:update_client' object.pk %}">Изменить</a>
+            <a class="btn btn-outline-danger front-right" href="{% url 'client:delete_client' object.pk %}">Удалить</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
