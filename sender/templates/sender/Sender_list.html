@@ -1,0 +1,35 @@
+{% extends 'clients/base.html' %}
+
+{% block content %}
+<div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+    {% for object in page_obj %}
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-header text-center">
+                <h4 class="my-0 font-weight-normal">
+                    {{ object.subject|title }}
+                </h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li><strong>Заголовок: </strong>{{ object.subject|title }}</li>
+                    <li><strong>Сообщение: </strong>{{ object.message }}</li>
+                    <li><strong>Клиент рассылки: </strong>
+                        {% for client in object.client.all %}
+                        {{ client.email }}
+                        {% if not forloop.last %} |
+                        {% endif %}
+                    {% endfor %}
+                    </li>
+                </ul>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-lg btn-block btn-outline-primary"
+                   href="{% url 'sender:sender_detail' object.pk %}">Подробнее</a>
+            </div>
+        </div>
+    </div>
+     {% endfor %}
+</div>
+{% include 'clients/includes/inc_pagination.html' %}
+{% endblock %}
