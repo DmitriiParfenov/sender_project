@@ -1,0 +1,38 @@
+{% extends 'clients/base.html' %}
+{% load client_email_tags %}
+
+{% block content %}
+<div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+    {% for object in page_obj %}
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-header text-center">
+                <h4 class="my-0 font-weight-normal">
+                    {{ object.last_name|title }} {{ object.first_name|title }}
+                </h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li><strong>Имя: </strong>{{ object.first_name|title }}</li>
+                    <li><strong>Фамилия: </strong>{{ object.last_name|title }}</li>
+                    <li><strong>Отчество: </strong>{{ object.middle_name|title }}</li>
+                    <li><strong>Email: </strong>{{ object.email|hide_email }}</li>
+                    {% if object.comment %}
+                    {% if object.comment|length <= 100 %}
+                    <li><strong>Комментарии: </strong>{{ object.comment }}</li>
+                    {% else %}
+                    <li><strong>Комментарии: </strong>{{ object.comment|slice:"0:100" }} ...</li>
+                    {% endif %}
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-lg btn-block btn-outline-primary"
+                   href="{% url 'client:client_detail' object.pk %}">Подробнее</a>
+            </div>
+        </div>
+    </div>
+     {% endfor %}
+</div>
+{% include 'clients/includes/inc_pagination.html' %}
+{% endblock %}
