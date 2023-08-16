@@ -1,0 +1,30 @@
+{% extends 'clients/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header text-center">
+            <h4 class="my-0 font-weight-normal">{{ object.subject|title }}</h4>
+        </div>
+        <div class="card-body">
+            <ul class="list-unstyled text-center">
+                <li><strong>Заголовок: </strong>{{ object.subject|title }}</li>
+                <li><strong>Сообщение: </strong>{{ object.message }}</li>
+                <li><strong>Клиент рассылки: </strong>
+                    {% for client in object.client.all %}
+                        {{ client.email }}
+                        {% if not forloop.last %} |
+                        {% endif %}
+                    {% endfor %}
+                </li>
+                <li><strong>Периодичность: </strong>{{ object.period }}</li>
+                <li><strong>Время отправки: </strong>{{ object.time }}</li>
+                <li><strong>Статус: </strong>{{ object.status|title }}</li>
+            </ul>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-outline-primary" href="{% url 'sender:update_sender' object.pk %}">Изменить</a>
+            <a class="btn btn-outline-danger front-right" href="{% url 'sender:delete_sender' object.pk %}">Удалить</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'clients/base.html' %}
+
+{% block content %}
+{% include 'clients/includes/inc_title.html' %}
+<div class="card-deck mb-3 text-center">
+    <div class="card mb-4 box-shadow">
+        <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Клиенты</h4>
+        </div>
+        <div class="card-body">
+            <h1 class="card-title pricing-card-title">Добавление клиента</h1>
+            <ul class="list-unstyled mt-3 mb-4">
+                <li>100к + клиентов</li>
+                <li>Конфидициально</li>
+                <li>Скорость</li>
+                <li>Help center access</li>
+            </ul>
+            <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'client:add_client' %}">Добавить клиента</a>
+        </div>
+    </div>
+    <div class="card mb-4 box-shadow">
+        <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Рассылки</h4>
+        </div>
+        <div class="card-body">
+            <h1 class="card-title pricing-card-title">Создание сообщения</h1>
+            <ul class="list-unstyled mt-3 mb-4">
+                <li>Готовые шаблоны</li>
+                <li>Автоматические письма</li>
+                <li>Рассылка по email</li>
+                <li>Help center access</li>
+            </ul>
+            <a href="{% url 'sender:add_mail' %}" class="btn btn-lg btn-block btn-outline-primary">Добавить письмо</a>
+        </div>
+    </div>
+    <div class="card mb-4 box-shadow">
+        <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Статистика</h4>
+        </div>
+        <div class="card-body">
+            <h1 class="card-title pricing-card-title">Получение статистики</h1>
+            <ul class="list-unstyled mt-3 mb-4">
+                <li>Детальная статистика</li>
+                <li>Сегментация</li>
+                <li>Удобные отчеты</li>
+                <li>Help center access</li>
+            </ul>
+            <button type="button" class="btn btn-lg btn-block btn-outline-primary">Получить статистику</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

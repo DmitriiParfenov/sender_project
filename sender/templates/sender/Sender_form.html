@@ -1,0 +1,57 @@
+{% extends 'clients/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mt-5 mb-5">
+            <div class="card-header">
+                {% if object %}
+                <h4>Изменение данных о рассылке</h4>
+                {% else %}
+                <h4>Добавление рассылки</h4>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    {% if object %}
+                    <input type="submit" value="Изменить" class="btn btn-primary">
+                    {% else %}
+                    <input type="submit" value="Добавить" class="btn btn-primary">
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card mt-5 mb-5">
+            <div class="card-footer">
+                <h4>Правила добавления</h4>
+            </div>
+            <div class="card-body">
+            <img src="https://bipbap.ru/wp-content/uploads/2019/09/kartinki-sobak_11.jpg"
+                 class="card-img">
+                <ul>
+                    <li>
+                        Не допускается использование нецензурных слов
+                    </li>
+                    <li>
+                        Заполните время в формате ЧЧ:ММ (0–23:0–59)
+                    </li>
+                    <li>
+                        Для выбора нескольких клиентов удерживайте CTRL
+                    </li>
+                    <li>
+                        Если хотите начать рассылку, укажите статус <i>Запущена</i>
+                    </li>
+                    <li>
+                        Если хотите отключить рассылку, укажите статус <i>Завершена</i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
