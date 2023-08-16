@@ -146,5 +146,5 @@ EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 
 CRONJOBS = [
-    ('* * * * *', 'sender.cron.my_scheduled_job')
+    ('*/2 * * * *', 'sender.cron.my_scheduled_job')
 ]
