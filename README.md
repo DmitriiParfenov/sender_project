@@ -18,7 +18,10 @@ python manage.py csu
 ```
 python manage.py cmg
 ```
-
+- Для отправки рассылок, из директории `sender_project` выполните в консоли: </br>
+```
+python manage.py start_cron
+```
 
 # Клонирование репозитория
 
