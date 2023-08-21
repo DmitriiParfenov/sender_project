@@ -1,0 +1,31 @@
+{% extends 'clients/base.html' %}
+
+
+{% block content %}
+<div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+    {% for object in page_obj %}
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-header text-center">
+                <h4 class="my-0 font-weight-normal">
+                    Рассылка пользователя: {{ object.sender.sender_user }}
+                </h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li><strong>Клиент </strong>{{ object.client.email }}</li>
+                    <li><strong>Тема рассылки: </strong>{{ object.sender.subject }}</li>
+                    <li><strong>Статус отправки: </strong>{{ object.status }}</li>
+                    <li><strong>Дата и время отправки: </strong>{{ object.last_try }}</li>
+                </ul>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-lg btn-block btn-outline-primary"
+                   href="{% url 'sender:senderlog_detail' object.pk %}">Подробнее</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% include 'clients/includes/inc_pagination.html' %}
+{% endblock %}

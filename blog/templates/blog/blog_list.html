@@ -1,0 +1,30 @@
+{% extends 'clients/base.html' %}
+
+{% block content %}
+<a href="{% url 'blog:create_blog' %}" class="btn btn-primary mb-4">Добавить публикацию</a>
+<div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+    {% for object in page_obj %}
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-header text-center">
+                <h4 class="my-0 font-weight-normal">
+                    {{ object.title|title }}
+                </h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li><strong>Дата публикации: </strong>{{ object.published }}</li>
+                    <li><strong>Количество просмотров: </strong>{{ object.view_count }}</li>
+                    <li><strong>Создатель публикации: </strong>{{ object.user_blog }}</li>
+                </ul>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-lg btn-block btn-outline-primary"
+                   href="{% url 'blog:blog_detail' object.pk %}">Подробнее</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% include 'clients/includes/inc_pagination.html' %}
+{% endblock %}

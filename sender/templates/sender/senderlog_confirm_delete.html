@@ -1,0 +1,19 @@
+{% extends 'clients/base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h4>Удаление рассылки клиента "{{ object.client }}" </h4>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            <p>Действительно хотите удалить статистику по рассылке на тему "{{ object.sender.subject }}" ?</p>
+            <button type="submit" class="btn btn-danger">
+                Удалить
+            </button>
+            <a href="{% url 'sender:senderlog_detail' object.pk %}" class="btn btn-warning">Отмена</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

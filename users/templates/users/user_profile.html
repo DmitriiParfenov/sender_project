@@ -1,0 +1,75 @@
+{% extends 'clients/base.html' %}
+{% load static %}
+{% load user_tags %}
+
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Информация о пользователе</h5>
+                </div>
+                <div class="card-body">
+                    <div class="col-md-6 mb-3">
+                        <div class="text-center">
+                            <img src="{{ user_object.avatar|media_path }}" class="card-img">
+                        </div>
+                    </div>
+                    <ul>
+                        <li>
+                            <strong>Электронная почта: </strong>{{ user.email }}
+                        </li>
+                        <li>
+                            <strong>Имя: </strong>{{ user.first_name|default:'Не указано' }}
+                        </li>
+                        <li>
+                            <strong>Фамилия: </strong>{{ user.last_name|default:'Не указано' }}
+                        </li>
+                        <li>
+                            <strong>Номер телефона: </strong>{{ user.phone|default:'Не указано' }}
+                        </li>
+                        <li>
+                            <strong>Страна проживания: </strong>{{ user.country|default:'Не указано' }}
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'users:profile' %}" class="btn btn-primary">Изменить данные</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Информация о клиентах и рассылках</h5>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>
+                            Уникальные клиенты: <strong>{{ all_clients }}</strong>
+                        </li>
+                        <li>
+                            Все рассылки:
+                            <strong>{{ all_senders }}</strong>
+                        </li>
+                        <li>
+                            Все активные рассылки:
+                            <strong>{{ active_senders }}</strong>
+                        </li>
+                    </ul>
+                    <p>
+                        Для добавления клиента рассылки перейдите по <a href="{% url 'clients:add_client' %}">
+                        <i>ссылке</i></a>. Для добавления самой рассылки — воспользуйтесь
+                        <a href="{% url 'clients:add_client' %}"><i>добавлением рассылки</i></a>. Для запуска рассылки
+                        необходимо в самой рассылке изменить статус на <i>запущена</i>, а для отключения —
+                        <i>завершена</i>. В <a href="{% url 'sender:senderlog_list' %}"><i>статистике</i></a> вы можете
+                        посмотреть всю информацию о каждой рассылке и их статусе.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

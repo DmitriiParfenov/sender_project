@@ -1,0 +1,99 @@
+{% extends 'clients/base.html' %}
+{% load static %}
+{% load user_tags %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            {% for object in page_obj %}
+            <div class="card mt-5 mb-5">
+                <div class="card-header">
+                    <div class="text-center">
+                        <h4>{{ object.subject }}</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>
+                            <strong>Сообщение: </strong>{{ object.message }}
+                        </li>
+                        <li>
+                            <strong>Клиенты рассылки: </strong>
+                            {% for client in object.client.all %}
+                            {{ client.email }}
+                            {% if not forloop.last %} |
+                            {% endif %}
+                            {% endfor %}
+                        </li>
+                        <li>
+                            <strong>Периодичность: </strong>{{ object.period }}
+                        </li>
+                        <li>
+                            <strong>Статус: </strong>{{ object.status }}
+                        </li>
+                        <li>
+                            <strong>Дата и время создания: </strong>{{ object.time }}
+                        </li>
+                        <li>
+                            <strong>Создатель рассылки: </strong>{{ object.sender_user }}
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'users:moderator_sender_update' object.pk %}" class="btn btn-primary">
+                        Изменить статус
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+            {% include 'clients/includes/inc_pagination.html' %}
+        </div>
+        {% if perms.users.set_disabled %}
+        <div class="col-md-6">
+            <div class="card mt-5 mb-5">
+                <div class="card-header">
+                    <div class="text-center">
+                        <h4>Пользователи</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% for user in all_users %}
+                        <div class="col-md-4 mb-5">
+                            <div class="text-center">
+                                <img src="{{ user.avatar|media_path }}" class="img-thumbnail">
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <ul>
+                                <li>
+                                    <strong>Email: </strong>{{ user.email }}
+                                </li>
+                                <li>
+                                    <strong>Имя: </strong>{{ user.first_name|default:"не указано" }}
+                                </li>
+                                <li>
+                                    <strong>Фамилия: </strong>{{ user.last_name|default:"не указано" }}
+                                </li>
+                                <li>
+                                    <strong>Телефон: </strong>{{ user.phone|default:"не указано" }}
+                                </li>
+                                <li>
+                                    <strong>Страна: </strong>{{ user.country|default:"не указано" }}
+                                </li>
+                                <a href="{% url 'users:moderator_user_update' user.pk %}"
+                                   class="btn btn-primary btn-sm mt-1">
+                                    Изменить статус пользователя
+                                </a>
+                            </ul>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

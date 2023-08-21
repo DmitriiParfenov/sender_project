@@ -1,0 +1,63 @@
+{% extends 'clients/base.html' %}
+{% load blog_tags %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="container mt-5">
+            <div class="card mt-1 mb-5">
+                <div class="card-header">
+                    <div class="text-center">
+                        <h4>{{ object.title|title }}</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="{{ object.image|media_path }}" class="card-img mt-3 ml-3 mr-3 mb-3">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ object.title|title }}</h5>
+                            <p class="card-text">{{ object.content }}</p>
+                            <ul>
+                                <li>
+                                    <strong>Создатель: </strong>{{ object.user_blog }}
+                                </li>
+                                <li>
+                                    <strong>Дата публикации: </strong>{{ object.published }}
+                                </li>
+                                <li>
+                                    <strong>Количество просмотров: </strong>{{ object.view_count }}
+                                </li>
+                                <li>
+                                    <strong>Email для связи: </strong>{{ object.email }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% if user == blog_user %}
+                <div class="card-footer">
+                    <a href="{% url 'blog:update_blog' object.pk %}" class="btn btn-primary">
+                        Изменить
+                    </a>
+                    <a href="{% url 'blog:delete_blog' object.pk %}" class="btn btn-danger float-right">
+                        Удалить
+                    </a>
+                </div>
+                {% elif user.is_superuser %}
+                <div class="card-footer">
+                    <a href="{% url 'blog:update_blog' object.pk %}" class="btn btn-primary">
+                        Изменить
+                    </a>
+                    <a href="{% url 'blog:delete_blog' object.pk %}" class="btn btn-danger float-right">
+                        Удалить
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
