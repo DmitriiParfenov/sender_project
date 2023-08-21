@@ -1,0 +1,31 @@
+{% extends 'clients/base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-5">
+            <div class="card mt-5 mb-5">
+                <div class="card-header">
+                    <ul class="list-inline">
+                        <li  class="list-inline-item">
+                            <h4>Изменение даных</h4>
+                        </li >
+                        <li  class="list-inline-item">
+                            <a href="{% url 'users:change_password' %}" class="btn btn-danger">Изменить пароль</a>
+                        </li >
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary">Изменить</button>
+                        <a href="{% url 'users:user_profile' %}" class="btn btn-secondary">Отмена</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
