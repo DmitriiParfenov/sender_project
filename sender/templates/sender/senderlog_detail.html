@@ -1,0 +1,24 @@
+{% extends 'clients/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header text-center">
+            <h4 class="my-0 font-weight-normal">Клиент рассылки: {{ object.client }}</h4>
+        </div>
+        <div class="card-body">
+            <ul class="list-unstyled text-center">
+                <li><strong>Клиент: </strong>{{ object.client.email }}</li>
+                <li><strong>Тема рассылки: </strong>{{ object.sender.subject }}</li>
+                <li><strong>Сообщение рассылки: </strong>{{ object.sender.message }}</li>
+                <li><strong>Статус отправки: </strong>{{ object.status }}</li>
+                <li><strong>Дата и время отправки: </strong>{{ object.last_try }}</li>
+            </ul>
+        </div>
+        {% if perms.sender.delete_blog %}
+        <div class="card-footer">
+            <a class="btn btn-outline-danger front-right" href="{% url 'sender:senderlog_delete' object.pk %}">Удалить</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
