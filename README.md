@@ -7,6 +7,19 @@ Sender_project — это онлайн-сервис, где пользовате
 Сайт написан на Python с использованием Django для запросов пользователя и Bootstrap для frontend. 
 Работа с изображениями — pillow. База данных — PostgreSQL.
 
+# Дополнительная информация
+
+- Для создания суперпользователя из директории `sender_project` выполните в консоли: </br>
+```
+python manage.py csu
+```
+- Для создания группы `Manager` с правами для просмотра всех пользователей и рассылок, а также для отключения
+любых рассылок и пользователей, из директории `sender_project` выполните в консоли: </br>
+```
+python manage.py cmg
+```
+
+
 # Клонирование репозитория
 
 В проекте для управления зависимостями используется [poetry](https://python-poetry.org/). </br>
@@ -45,18 +58,67 @@ sudo service redis-server start
 redis-cli ping
 ```
 
+# Работа с базой данной PostgreSQL
 
+- Установите PostgreSQL, если он не установлен. Для этого, например для Ubuntu, выполните в консоли:
+```
+sudo apt install postgresql
+```
+- Выполните вход в интерактивную оболочку PostgreSQL от имени `postgresql`, выполнив в консоли:
+```
+sudo -i -u postgres psql
+```
+- Создайте базу данный для проекта, выполнив в консоли:
+```
+CREATE DATABASE sender_project;
+```
+- Закройте интерактивную оболочку PostgreSQL:
+```
+\q
+```
 
 # Работа с переменными окружения
 
-- Установите адрес электронный почты [yandex](https://mail.yandex.ru/) в переменную окружения: `yandex_login`.
-- Установите пароль для работы с приложением SMTP [yandex](https://id.yandex.ru/security/app-passwords) в переменную окружения: `yandex_password_smtp`.
-- Установите пароль для работы с базой данных `postgresql` для пользователя `postgres` в переменную окружения: `password`.
+- В директории `sender_project` создайте файл `.env`. Пример содержимого файла:
+```
+EMAIL_BACKEND=путь импорта Python для вашего класса бэкенда
+EMAIL_HOST=хост SMTP
+EMAIL_HOST_USER=адрес электронной почты для аутентификации на почтовом сервере
+EMAIL_HOST_PASSWORD=пароль для аутентификации на почтовом сервере
 
-# Запуск
+CACHE_ENABLED=1
 
-Выполните в консоли: </br>
+LOCATION=местоположение используемого кеша (redis)
+```
+
+# Настройка Django-crontab в подсистеме Linux (wsl)
+
+- Запустите cron, выполнив в консоли:
+```
+sudo service cron start
+``` 
+- Включите текущего пользователя `windows` в группу cron:
+```
+sudo usermod -a -G crontab (username)
+```     
+
+# Работа с миграциями
+
+Из директории `sender_project` выполните в консоли: </br>
 
 ```
+python manage.py migrate
+```
+
+# Запуск сервера Django
+
+- Активируйте виртуальное окружение согласно п. `Клонирование репозитория` </br>
+
+- Из  директории `sender_project` выполните в консоли: </br>
+```
 python manage.py runserver
+```  
+или 
+```
+python3 manage.py runserver
 ```
