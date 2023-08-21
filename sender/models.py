@@ -24,6 +24,8 @@ class Sender(models.Model):
     period = models.CharField(max_length=50, choices=Period.choices, default=Period.DAILY, verbose_name='Периодичность')
     status = models.CharField(max_length=50, choices=Status.choices, default=Status.CREATED, verbose_name='Статус')
     time = models.TimeField(verbose_name='Время')
+    sender_user = models.ForeignKey('users.User', on_delete=models.SET_NULL, verbose_name='создатель рассылки',
+                                    **NULLABLE)
 
     def __str__(self):
         return f'{self.subject}'
@@ -31,6 +33,13 @@ class Sender(models.Model):
     class Meta:
         verbose_name = 'Рассылка'
         verbose_name_plural = 'Рассылки'
+        ordering = ('subject', )
+        permissions = [
+            (
+                'set_disabled',
+                'Can disable Рассылка'
+            )
+        ]
 
 
 class SenderLog(models.Model):
