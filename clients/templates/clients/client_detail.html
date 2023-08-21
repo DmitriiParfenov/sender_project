@@ -13,6 +13,7 @@
                 <li><strong>Фамилия: </strong>{{ object.last_name|title }}</li>
                 <li><strong>Отчество: </strong>{{ object.middle_name|title }}</li>
                 <li><strong>Email: </strong>{{ object.email|hide_email }}</li>
+                <li><strong>Создатель: </strong>{{ object.client_user }}</li>
                 {% if object.comment %}
                 <li><strong>Комментарии: </strong>{{ object.comment }}</li>
                 {% endif %}
