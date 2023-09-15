@@ -96,6 +96,10 @@ LOCATION=местоположение используемого кеша (redis
 
 # Настройка Django-crontab в подсистеме Linux (wsl)
 
+- Добавьте команду в crontab, выполнив в консоли:
+```
+python manage.py crontab add
+``` 
 - Запустите cron, выполнив в консоли:
 ```
 sudo service cron start
